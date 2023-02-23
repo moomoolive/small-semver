@@ -1,20 +1,32 @@
 // implementation taken from spec
 // https://semver.org/
 
+export type PrereleaseTag = (
+    "prealpha"
+    | "alpha"
+    | "beta"
+    | "rc"
+)
+
+type PreReleaseMap = {
+    readonly [key in PrereleaseTag]: number
+}
+
 // numbers start high for backwards compatiblity
 // in case I want to add more tags in the beginning
 const LOWEST_TAG_VAL = 999
-const prereleaseTags = {
+const prereleaseTags: PreReleaseMap = {
     prealpha: LOWEST_TAG_VAL,
     alpha: 1_000,
     beta: 1_001,
     rc: 1_002
-} as const
-
-type PrereleaseTag = keyof typeof prereleaseTags
+}
 
 const isPositiveNumber = (n: number) => !Number.isNaN(n) && n > -1
 
+/**
+ * the longest length an inputted semantic version string can be
+ */
 export const MAX_VERSION_LENGTH = 256
 
 export const NO_PRE_RELEASE_BUILD_SPECIFIED = -1
@@ -102,11 +114,27 @@ const enum compare {
     current_lower = 1
 }
 
+/**
+ * Repersents a semantic version that is compliant with the 
+ * specification found at https://semver.org/ (the same one
+ * Node uses).
+ */
 export class SemVer {
+    /**
+     * returns a SemVer that has all patch members set to
+     * 0 (major, minor, patch) and no pre prelease tag.
+     */
     static null(): SemVer {
         return new SemVer(0, 0, 0, NO_PRE_RELEASE_TAG, NO_PRE_RELEASE_BUILD_SPECIFIED)
     }
 
+    /**
+     * Returns a Semver if string is a valid semantic
+     * version string, Otherwise returns null.
+     * 
+     * @param version a semantic version string
+     * @returns 
+     */
     static fromString(version: string): SemVer | null {
         return getSemanticVersion(version)
     }
