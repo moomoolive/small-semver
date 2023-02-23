@@ -7,3 +7,5 @@
 # small-semver
 
 A tiny package used to compare semantic versions
+
+Docs: <https://moomoolive.github.io/small-semver/>
