@@ -1,7 +1,8 @@
 {
   "name": "small-semver",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
+  "type": "module",
   "description": "A tiny package used to compare semantic versions",
   "scripts": {
     "test": "vitest run",
@@ -23,7 +24,7 @@
     "versions",
     "small"
   ],
-  "homepage": "https://github.com/moomoolive/small-semver",
+  "homepage": "https://moomoolive.github.io/small-semver/",
   "bugs": {
     "url": "https://github.com/moomoolive/small-semver/issues"
   },

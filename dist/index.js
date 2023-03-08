@@ -10,6 +10,9 @@ const prereleaseTags = {
     rc: 1_002
 };
 const isPositiveNumber = (n) => !Number.isNaN(n) && n > -1;
+/**
+ * the longest length an inputted semantic version string can be
+ */
 export const MAX_VERSION_LENGTH = 256;
 export const NO_PRE_RELEASE_BUILD_SPECIFIED = -1;
 export const NO_PRE_RELEASE_TAG = "none";
@@ -73,10 +76,26 @@ const getSemanticVersion = (version) => {
     }
     return semver;
 };
+/**
+ * Repersents a semantic version that is compliant with the
+ * specification found at https://semver.org/ (the same one
+ * Node uses).
+ */
 export class SemVer {
+    /**
+     * returns a SemVer that has all patch members set to
+     * 0 (major, minor, patch) and no pre prelease tag.
+     */
     static null() {
         return new SemVer(0, 0, 0, NO_PRE_RELEASE_TAG, NO_PRE_RELEASE_BUILD_SPECIFIED);
     }
+    /**
+     * Returns a Semver if string is a valid semantic
+     * version string, Otherwise returns null.
+     *
+     * @param version a semantic version string
+     * @returns
+     */
     static fromString(version) {
         return getSemanticVersion(version);
     }
